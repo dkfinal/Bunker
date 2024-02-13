@@ -62,9 +62,9 @@ namespace Bunker.Client
             return false;
         }
 
-        public void ReadAsync(Action<BunkerMessage, NetworkStream> ExequteRequest)
+        public void ReadAsync(Action<BunkerMessage, NetworkStream> ExecuteRequest)
         {
-            tcpEntity.ReadAsync(ExequteRequest);
+            tcpEntity.ReadAsync(ExecuteRequest);
         }
     }
 }

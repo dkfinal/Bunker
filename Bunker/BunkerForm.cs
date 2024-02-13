@@ -36,11 +36,11 @@ namespace Bunker
 
         private void worker_readasync_Tick(object sender, EventArgs e)
         {
-            client.ReadAsync(ExequteRequest);
+            client.ReadAsync(ExecuteRequest);
         }
 
         //TO-DO reorganize executioner
-        private void ExequteRequest(BunkerMessage bmsg, NetworkStream stream)
+        private void ExecuteRequest(BunkerMessage bmsg, NetworkStream stream)
         {
             switch (bmsg.GetRequestType())
             {

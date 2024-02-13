@@ -1,6 +1,8 @@
 using System.Net;
 using System.Net.Sockets;
+using System.Runtime.Serialization;
 using System.Text;
+using Bunker_Server.Server;
 using Common.Network.Message;
 using Common.Network.Message.high;
 
@@ -8,20 +10,31 @@ namespace Bunker_Server
 {
     public partial class BunkerServerForm : Form
     {
-        int port = 29500;
-        TcpListener listener;
-        IPEndPoint iep;
-        List<ConnectedEntity> clients = new List<ConnectedEntity>();
+        BNKServer server;
 
         public BunkerServerForm()
         {
-            iep = new IPEndPoint(IPAddress.Any, port);
-            listener = new TcpListener(iep);
-            listener.Start();
+            server = new BNKServer();
             InitializeComponent();
         }
+        
+        private void worker_listener_Tick(object sender, EventArgs e)
+        {
+            lClientAmount.Text = server.ListenConnections().ToString();
+        }
 
-        void ExecuteRequest(BunkerMessage bmsg, NetworkStream stream)
+        private void worker_keepalive_Tick(object sender, EventArgs e)
+        {
+            lClientAmount.Text = server.KeepAlive().ToString();
+        }
+
+        private void worker_readasync_Tick(object sender, EventArgs e)
+        {
+            server.ReadAsync(ExecuteRequest);
+        }
+
+        //TO-DO reorganize executioner
+        private void ExecuteRequest(BunkerMessage bmsg, NetworkStream stream)
         {
             switch (bmsg.GetRequestType())
             {
@@ -32,35 +45,6 @@ namespace Bunker_Server
                     break;
                 default:
                     break;
-            }
-        }
-        private void worker_listener_Tick(object sender, EventArgs e)
-        {
-            if (listener.Pending())
-            {
-                clients.Add(new ConnectedEntity(listener.AcceptTcpClient()));
-                lClientAmount.Text = clients.Count.ToString();
-            }
-        }
-
-        private void worker_keepalive_Tick(object sender, EventArgs e)
-        {
-            for (int i = 0; i < clients.Count; i++)
-            {
-                if (!clients[i].Send(new BunkerMessage(RequestType.KEEP_ALIVE)))
-                {
-                    clients[i].Dispose();
-                    clients.RemoveAt(i);
-                    lClientAmount.Text = clients.Count.ToString();
-                }
-            }
-        }
-
-        private void worker_readasync_Tick(object sender, EventArgs e)
-        {
-            foreach (var client in clients)
-            {
-                client.ReadAsync(ExecuteRequest);
             }
         }
     }
