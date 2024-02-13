@@ -1,4 +1,5 @@
-﻿using Bunker.LoginScreen;
+﻿using Bunker.Client;
+using Bunker.LoginScreen;
 using Bunker_Server;
 using Common.Network.Message;
 using Common.Network.Message.high;
@@ -17,17 +18,15 @@ namespace Bunker
 {
     public partial class BunkerForm : Form
     {
-        ConnectedEntity tcpEntity;
+        BNKClient client;
         bool isReading = false;
 
-        public BunkerForm(string nickname, ref TcpClient tcpClient)
+        public BunkerForm(string nickname, ref BNKClient client)
         {
             InitializeComponent();
-
             lNickname.Text = nickname.Trim();
-            tcpEntity = new ConnectedEntity(tcpClient);
-            BunkerMessage msg = new BunkerMessage(RequestType.SET_NICKNAME, lNickname.Text);
-            tcpEntity.Send(msg);
+            this.client = client;
+            client.Send(RequestType.SET_NICKNAME, lNickname.Text);
         }
 
         private void BunkerForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -37,9 +36,10 @@ namespace Bunker
 
         private void worker_readasync_Tick(object sender, EventArgs e)
         {
-            tcpEntity.ReadAsync(ExequteRequest);
+            client.ReadAsync(ExequteRequest);
         }
 
+        //TO-DO reorganize executioner
         private void ExequteRequest(BunkerMessage bmsg, NetworkStream stream)
         {
             switch (bmsg.GetRequestType())

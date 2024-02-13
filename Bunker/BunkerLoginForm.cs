@@ -1,4 +1,5 @@
-﻿using Common;
+﻿using Bunker.Client;
+using Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +17,8 @@ namespace Bunker.LoginScreen
 {
     public partial class BunkerLoginForm : Form
     {
-        int port = 29500;
-        TcpClient tcpClient;
+        BNKClient client;
         BunkerForm bunkerMainForm;
-
 
         public BunkerLoginForm()
         {
@@ -32,42 +32,19 @@ namespace Bunker.LoginScreen
 
         private void bConnect_Click(object sender, EventArgs e)
         {
-            if (tcpClient != null)
+            if (client != null)
                 return;
 
-            if(tbNickname.Text.Trim().Length == 0)
+            if (tbNickname.Text.Trim().Length == 0)
                 return;
 
+            client = new BNKClient();
 
-            IPAddress ip;
-            try {
-                ip = IPAddress.Parse(tbIP.Text);
-            }
-            catch
+            if(client.Connect(tbIP.Text))
             {
-                return;
-            }
-            IPEndPoint iep = new IPEndPoint(ip, port);
-
-            tcpClient = new TcpClient();
-            try
-            {
-                tcpClient.Connect(iep);
-            }
-            catch
-            {
-                tcpClient.Close();
-                tcpClient.Dispose();
-                return;
-            }
-
-            if(tcpClient.Connected)
-            {
-                bunkerMainForm = new BunkerForm(tbNickname.Text, ref tcpClient);
+                bunkerMainForm = new BunkerForm(tbNickname.Text, ref client);
                 bunkerMainForm.FormClosed += CloseThisForm;
                 bunkerMainForm.Show();
-
-                this.Hide();
             }
         }
 
