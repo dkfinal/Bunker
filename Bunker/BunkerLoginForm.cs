@@ -45,6 +45,7 @@ namespace Bunker.LoginScreen
                 bunkerMainForm = new BunkerForm(tbNickname.Text, ref client);
                 bunkerMainForm.FormClosed += CloseThisForm;
                 bunkerMainForm.Show();
+                this.Hide();
             }
         }
 
