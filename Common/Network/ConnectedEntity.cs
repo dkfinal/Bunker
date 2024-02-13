@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bunker_Server
 {
+    //TO-DO move this class file to Network folder
     public class ConnectedEntity
     {
         TcpSender request;
