@@ -26,7 +26,7 @@ namespace Bunker
             InitializeComponent();
             lNickname.Text = nickname.Trim();
             this.client = client;
-            client.Send(RequestType.SET_NICKNAME, lNickname.Text);
+            client.Send(TcpRequestType.SET_NICKNAME, lNickname.Text);
         }
 
         private void BunkerForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -44,7 +44,7 @@ namespace Bunker
         {
             switch (bmsg.GetRequestType())
             {
-                case RequestType.KEEP_ALIVE:
+                case TcpRequestType.KEEP_ALIVE:
                     break;
                 default:
                     break;

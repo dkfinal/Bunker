@@ -38,10 +38,10 @@ namespace Bunker_Server
         {
             switch (bmsg.GetRequestType())
             {
-                case RequestType.SET_NICKNAME:
+                case TcpRequestType.SET_NICKNAME:
                     lbNetLogs.Items.Add(bmsg.GetRequestValue() + " connected");
                     break;
-                case RequestType.KEEP_ALIVE:
+                case TcpRequestType.KEEP_ALIVE:
                     break;
                 default:
                     break;

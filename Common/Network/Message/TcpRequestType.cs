@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Network.Message
 {
-    public static class RequestType
+    public static class TcpRequestType
     {
         public const string
             SET_NICKNAME = "nickname",

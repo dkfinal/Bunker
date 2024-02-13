@@ -37,7 +37,7 @@ namespace Bunker_Server.Server
         {
             for (int i = 0; i < clients.Count; i++)
             {
-                if (!clients[i].Send(new BunkerMessage(RequestType.KEEP_ALIVE)))
+                if (!clients[i].Send(new BunkerMessage(TcpRequestType.KEEP_ALIVE)))
                 {
                     clients[i].Dispose();
                     clients.RemoveAt(i);
