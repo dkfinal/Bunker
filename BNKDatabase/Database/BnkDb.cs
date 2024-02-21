@@ -83,7 +83,10 @@ namespace BNKDatabase
         public string GetWCProp(int id, string storyProperty)
         {
             if (id <= 0)
-                return "ERROR: ID WAS LESS THAN 1";
+            {
+                Console.WriteLine("ERROR: ID WAS LESS THAN 1");
+                return null;
+            }
 
             var getval = (string column) => { return GetValueByID(BnkDbStruct.WinConditionTable.wincondition, column, id.ToString()); };
 
@@ -102,13 +105,53 @@ namespace BNKDatabase
                 case StoryProperty.badend:
                     return getval(BnkDbStruct.WinConditionCol.badend);
                 default:
-                    return "ERROR: UNKOWN STORY PROPERTY";
+                    Console.WriteLine("ERROR: UNKOWN STORY PROPERTY");
+                    return null;
             }
         }
 
         public List<string> GetWCProfessions(int id)
         {
-            return null;
+            if (id <= 0)
+            {
+                Console.WriteLine("ERROR: ID WAS LESS THAN 1");
+                return null;
+            }
+
+            string wcProfessionForeignStr = GetValueByID(BnkDbStruct.WinConditionTable.wincondition, BnkDbStruct.WinConditionCol.professions, id.ToString());
+
+            if (wcProfessionForeignStr == null)
+            {
+                return null;
+            }
+
+            int wcProfessionForeign = int.Parse(wcProfessionForeignStr);
+            List<string> result = new List<string>();
+
+            for (int i = 0; i < BnkDbStruct.WinConditionTable.wcProfAmount; i++)
+            {
+                //
+                //
+                //
+                //
+                //TODO     TODO    TODO    TODO    TODO
+                //
+                //
+                //
+                //
+            }
+
+            //
+            //
+            //
+            //
+            //TODO     TODO    TODO    TODO    TODO
+            //
+            //
+            //
+            //
+
+            return result;
         }
 
         public List<string> GetWCItems(int id)
@@ -124,20 +167,24 @@ namespace BNKDatabase
         string GetValueByID(string table, string column, string id)
         {
             if (database == null)
-                return "ERROR: NO DATABASE LOADED";
+            {
+                Console.WriteLine("ERROR: NO DATABASE LOADED");
+                return null;
+            }
 
             using (var command = database.CreateCommand())
             {
                 command.CommandText = $"SELECT {column} FROM '{table}' WHERE id = '{id}'";
                 using (var reader = command.ExecuteReader())
                 {
-                    if (reader.Read())
+                    if (reader.Read() && !reader.IsDBNull(0))
                     {
                         return reader.GetString(0);
                     }
                     else
                     {
-                        return "NULL";
+                        Console.WriteLine("WARNING: VALUE WAS NULL");
+                        return null;
                     }
                 }
             }
@@ -146,7 +193,10 @@ namespace BNKDatabase
         int GetRowAmount(string table)
         {
             if (database == null)
-                return -1;
+            {
+                Console.WriteLine("ERROR: NO DATABASE LOADED");
+                return -1; 
+            }
 
             using (var command = database.CreateCommand())
             {
@@ -154,7 +204,7 @@ namespace BNKDatabase
                 using (var reader = command.ExecuteReader())
                 {
                     int counter = 0;
-                    while (reader.Read())
+                    while (reader.Read() && !reader.IsDBNull(0))
                     {
                         counter++;
                     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BNKDatabase.Types
 {
-    public static class BnkDbStruct
+    internal class BnkDbStruct
     {
         internal struct WinConditionTable
         {
@@ -14,6 +14,10 @@ namespace BNKDatabase.Types
                 wincondition = "Win Condition",
                 wcitems = "WC Items",
                 wcprofessions = "WC Professions";
+
+            public const int 
+                wcProfAmount = 8,
+                wcItemsAmount = 8;
         }
 
         internal struct WinConditionCol

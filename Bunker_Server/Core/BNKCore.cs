@@ -15,6 +15,7 @@ namespace Bunker_Server
         {
             bnkdb = new BnkDb();
             bnkdb.Connect();
+            bnkdb.GetWCProfessions(1);
         }
 
         public List<string> GetStoryList()
