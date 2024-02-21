@@ -10,10 +10,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bunker", "Bunker\Bunker.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bunker_Server", "Bunker_Server\Bunker_Server.csproj", "{A8CFB8EA-A074-4179-B1F3-536717EAC93F}"
 	ProjectSection(ProjectDependencies) = postProject
+		{7883BC22-622C-4953-9AE0-E693BFD71458} = {7883BC22-622C-4953-9AE0-E693BFD71458}
 		{C6297FE2-16E9-45B8-B72E-92EF0EDFCBD1} = {C6297FE2-16E9-45B8-B72E-92EF0EDFCBD1}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{C6297FE2-16E9-45B8-B72E-92EF0EDFCBD1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{C6297FE2-16E9-45B8-B72E-92EF0EDFCBD1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BNKDatabase", "BNKDatabase\BNKDatabase.csproj", "{7883BC22-622C-4953-9AE0-E693BFD71458}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C6297FE2-16E9-45B8-B72E-92EF0EDFCBD1} = {C6297FE2-16E9-45B8-B72E-92EF0EDFCBD1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,10 @@ Global
 		{C6297FE2-16E9-45B8-B72E-92EF0EDFCBD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6297FE2-16E9-45B8-B72E-92EF0EDFCBD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6297FE2-16E9-45B8-B72E-92EF0EDFCBD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7883BC22-622C-4953-9AE0-E693BFD71458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7883BC22-622C-4953-9AE0-E693BFD71458}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7883BC22-622C-4953-9AE0-E693BFD71458}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7883BC22-622C-4953-9AE0-E693BFD71458}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

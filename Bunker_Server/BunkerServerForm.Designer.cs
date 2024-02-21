@@ -38,6 +38,7 @@
             worker_listener = new System.Windows.Forms.Timer(components);
             worker_keepalive = new System.Windows.Forms.Timer(components);
             worker_readasync = new System.Windows.Forms.Timer(components);
+            CMBStories = new ComboBox();
             SuspendLayout();
             // 
             // lbNetLogs
@@ -53,7 +54,7 @@
             // lClientAmountName
             // 
             lClientAmountName.AutoSize = true;
-            lClientAmountName.Location = new Point(381, 288);
+            lClientAmountName.Location = new Point(381, 34);
             lClientAmountName.Name = "lClientAmountName";
             lClientAmountName.Size = new Size(74, 21);
             lClientAmountName.TabIndex = 1;
@@ -61,7 +62,7 @@
             // 
             // bStart
             // 
-            bStart.Location = new Point(381, 319);
+            bStart.Location = new Point(381, 58);
             bStart.Name = "bStart";
             bStart.Size = new Size(118, 54);
             bStart.TabIndex = 2;
@@ -71,7 +72,7 @@
             // lClientAmount
             // 
             lClientAmount.AutoSize = true;
-            lClientAmount.Location = new Point(461, 288);
+            lClientAmount.Location = new Point(461, 34);
             lClientAmount.Name = "lClientAmount";
             lClientAmount.Size = new Size(19, 21);
             lClientAmount.TabIndex = 1;
@@ -80,7 +81,7 @@
             // lStatusName
             // 
             lStatusName.AutoSize = true;
-            lStatusName.Location = new Point(381, 267);
+            lStatusName.Location = new Point(381, 13);
             lStatusName.Name = "lStatusName";
             lStatusName.Size = new Size(60, 21);
             lStatusName.TabIndex = 1;
@@ -89,7 +90,7 @@
             // lStatus
             // 
             lStatus.AutoSize = true;
-            lStatus.Location = new Point(447, 267);
+            lStatus.Location = new Point(447, 13);
             lStatus.Name = "lStatus";
             lStatus.Size = new Size(145, 21);
             lStatus.TabIndex = 1;
@@ -113,11 +114,20 @@
             worker_readasync.Interval = 50;
             worker_readasync.Tick += worker_readasync_Tick;
             // 
+            // CMBStories
+            // 
+            CMBStories.FormattingEnabled = true;
+            CMBStories.Location = new Point(505, 58);
+            CMBStories.Name = "CMBStories";
+            CMBStories.Size = new Size(166, 29);
+            CMBStories.TabIndex = 3;
+            // 
             // BunkerServerForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(683, 388);
+            Controls.Add(CMBStories);
             Controls.Add(bStart);
             Controls.Add(lClientAmount);
             Controls.Add(lStatus);
@@ -145,5 +155,6 @@
         private System.Windows.Forms.Timer worker_listener;
         private System.Windows.Forms.Timer worker_keepalive;
         private System.Windows.Forms.Timer worker_readasync;
+        private ComboBox CMBStories;
     }
 }

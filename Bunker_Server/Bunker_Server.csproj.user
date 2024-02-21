@@ -5,9 +5,5 @@
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resource.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
+  <ItemGroup />
 </Project>

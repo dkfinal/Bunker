@@ -1,7 +1,9 @@
+using System.Data.Common;
 using System.Net;
 using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
+using BNKDatabase;
 using Bunker_Server.Server;
 using Common.Network.Message;
 using Common.Network.Message.high;
@@ -11,11 +13,14 @@ namespace Bunker_Server
     public partial class BunkerServerForm : Form
     {
         BNKServer server;
+        BNKCore core;
 
         public BunkerServerForm()
         {
             server = new BNKServer();
+            core = new BNKCore();
             InitializeComponent();
+            //lbNetLogs.Items.Add(core.tester());
         }
         
         private void worker_listener_Tick(object sender, EventArgs e)

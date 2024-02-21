@@ -7,16 +7,16 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bunker_Server
+namespace Common
 {
-    //TO-DO move this class file to Network folder
     public class ConnectedEntity
     {
         TcpSender request;
+        PlayerCard playerCard;
 
         public ConnectedEntity(TcpClient tcp)
         {
-            this.request = new TcpSender(tcp);
+            request = new TcpSender(tcp);
         }
 
         public bool Send(BunkerMessage message)
