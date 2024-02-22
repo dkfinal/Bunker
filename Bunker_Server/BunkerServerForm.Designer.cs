@@ -48,13 +48,13 @@
             lbNetLogs.ItemHeight = 21;
             lbNetLogs.Location = new Point(12, 12);
             lbNetLogs.Name = "lbNetLogs";
-            lbNetLogs.Size = new Size(363, 361);
+            lbNetLogs.Size = new Size(175, 361);
             lbNetLogs.TabIndex = 0;
             // 
             // lClientAmountName
             // 
             lClientAmountName.AutoSize = true;
-            lClientAmountName.Location = new Point(381, 34);
+            lClientAmountName.Location = new Point(193, 33);
             lClientAmountName.Name = "lClientAmountName";
             lClientAmountName.Size = new Size(74, 21);
             lClientAmountName.TabIndex = 1;
@@ -62,7 +62,7 @@
             // 
             // bStart
             // 
-            bStart.Location = new Point(381, 58);
+            bStart.Location = new Point(449, 32);
             bStart.Name = "bStart";
             bStart.Size = new Size(118, 54);
             bStart.TabIndex = 2;
@@ -72,7 +72,7 @@
             // lClientAmount
             // 
             lClientAmount.AutoSize = true;
-            lClientAmount.Location = new Point(461, 34);
+            lClientAmount.Location = new Point(273, 33);
             lClientAmount.Name = "lClientAmount";
             lClientAmount.Size = new Size(19, 21);
             lClientAmount.TabIndex = 1;
@@ -81,7 +81,7 @@
             // lStatusName
             // 
             lStatusName.AutoSize = true;
-            lStatusName.Location = new Point(381, 13);
+            lStatusName.Location = new Point(193, 12);
             lStatusName.Name = "lStatusName";
             lStatusName.Size = new Size(60, 21);
             lStatusName.TabIndex = 1;
@@ -90,7 +90,7 @@
             // lStatus
             // 
             lStatus.AutoSize = true;
-            lStatus.Location = new Point(447, 13);
+            lStatus.Location = new Point(259, 12);
             lStatus.Name = "lStatus";
             lStatus.Size = new Size(145, 21);
             lStatus.TabIndex = 1;
@@ -116,17 +116,18 @@
             // 
             // CMBStories
             // 
+            CMBStories.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBStories.FormattingEnabled = true;
-            CMBStories.Location = new Point(505, 58);
+            CMBStories.Location = new Point(193, 57);
             CMBStories.Name = "CMBStories";
-            CMBStories.Size = new Size(166, 29);
+            CMBStories.Size = new Size(250, 29);
             CMBStories.TabIndex = 3;
             // 
             // BunkerServerForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(683, 388);
+            ClientSize = new Size(579, 388);
             Controls.Add(CMBStories);
             Controls.Add(bStart);
             Controls.Add(lClientAmount);

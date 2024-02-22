@@ -20,7 +20,6 @@ namespace Bunker_Server
             server = new BNKServer();
             core = new BNKCore();
             InitializeComponent();
-            //lbNetLogs.Items.Add(core.tester());
         }
         
         private void worker_listener_Tick(object sender, EventArgs e)
@@ -38,7 +37,7 @@ namespace Bunker_Server
             server.ReadAsync(ExecuteRequest);
         }
 
-        //TO-DO reorganize executioner
+        //TO-DO relocate this method.
         private void ExecuteRequest(BunkerMessage bmsg, NetworkStream stream)
         {
             switch (bmsg.GetRequestType())

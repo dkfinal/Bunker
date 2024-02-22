@@ -110,7 +110,7 @@ namespace BNKDatabase
             }
         }
 
-        public int GetPropAmount(string table)
+        public int GetValuesAmount(string table)
         {
             return GetRowAmount(table);
         }
