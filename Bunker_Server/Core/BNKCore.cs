@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BNKDatabase;
+using Common.BNKProperties;
 
 namespace Bunker_Server
 {
@@ -15,7 +16,14 @@ namespace Bunker_Server
         {
             bnkdb = new BnkDb();
             bnkdb.Connect();
-            bnkdb.GetWCProfessions(1);
+            var ids = bnkdb.GetWCProfessionsIDs(1);
+            if (ids != null)    //debug
+            {
+                foreach (var id in ids)
+                {
+                    var s = bnkdb.GetPersonProp(id, PersonProperty.profession);
+                }
+            }
         }
 
         public List<string> GetStoryList()

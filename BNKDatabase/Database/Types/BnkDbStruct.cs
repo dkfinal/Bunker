@@ -12,8 +12,8 @@ namespace BNKDatabase.Types
         {
             public const string
                 wincondition = "Win Condition",
-                wcitems = "WC Items",
-                wcprofessions = "WC Professions";
+                wcitems = "WC Items",                   //Contain ID's of PersonTable.item
+                wcprofessions = "WC Professions";       //Contain ID's of PersonTable.profession
 
             public const int 
                 wcProfAmount = 8,
@@ -27,39 +27,25 @@ namespace BNKDatabase.Types
                 name = "name",
                 maxplayers = "max players",
                 breed = "breed",
-                professions = "professions",
-                items = "items",
+                professions = "professions",            //foreign key linked to WinConditionTable - wcprofessions
+                items = "items",                        //foreign key linked to WinConditionTable - wcitems
                 opening = "opening",
                 goodend = "good end",
                 badend = "bad end";
         }
 
-        internal struct WCItemsCol
+        internal struct WCItemsColumnSketch
         {
             public const string
-                id = "id",
-                item1 = "item1",
-                item2 = "item2",
-                item3 = "item3",
-                item4 = "item4",
-                item5 = "item5",
-                item6 = "item6",
-                item7 = "item7",
-                item8 = "item8";
+                id = "id",                              //id is a primary key of wcitems table
+                name = "item";                          //usage name + 1.ToString() 
         }
 
-        internal struct WCProfessionsCol
+        internal struct WCProfessionsColumnSketch
         {
             public const string
-                id = "id",
-                profession1 = "profession1",
-                profession2 = "profession2",
-                profession3 = "profession3",
-                profession4 = "profession4",
-                profession5 = "profession5",
-                profession6 = "profession6",
-                profession7 = "profession7",
-                profession8 = "profession";
+                id = "id",                              //primary key of wcprofessions table
+                name = "profession";                    //usage name + 1.ToString() => profession1
         }
 
         internal struct PersonPropertyCol

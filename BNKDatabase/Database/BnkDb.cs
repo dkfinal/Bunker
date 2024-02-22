@@ -110,58 +110,72 @@ namespace BNKDatabase
             }
         }
 
-        public List<string> GetWCProfessions(int id)
+        public int GetPropAmount(string table)
         {
-            if (id <= 0)
+            return GetRowAmount(table);
+        }
+
+        public List<int> GetWCProfessionsIDs(int id)
+        {
+            return GetWCRelatedIDs(
+                id,
+                BnkDbStruct.WinConditionCol.professions,
+                BnkDbStruct.WinConditionTable.wcprofessions,
+                BnkDbStruct.WCProfessionsColumnSketch.name,
+                BnkDbStruct.WinConditionTable.wcProfAmount
+                );
+        }
+
+        public List<int> GetWCItemsIDs(int id)
+        {
+            return GetWCRelatedIDs(
+                id,
+                BnkDbStruct.WinConditionCol.items,
+                BnkDbStruct.WinConditionTable.wcitems,
+                BnkDbStruct.WCItemsColumnSketch.name,
+                BnkDbStruct.WinConditionTable.wcItemsAmount
+                );
+        }
+
+        List<int> GetWCRelatedIDs(
+            int wincond_id,
+            string wcForeignColumn,
+            string wcRelatedTable,
+            string wcRelatedColumnSketch,
+            int wcRelatedColAmount)
+        {
+            if (wincond_id <= 0)
             {
                 Console.WriteLine("ERROR: ID WAS LESS THAN 1");
                 return null;
             }
 
-            string wcProfessionForeignStr = GetValueByID(BnkDbStruct.WinConditionTable.wincondition, BnkDbStruct.WinConditionCol.professions, id.ToString());
+            string wcForeignKeyStr = GetValueByID(BnkDbStruct.WinConditionTable.wincondition, wcForeignColumn, wincond_id.ToString());
 
-            if (wcProfessionForeignStr == null)
+            if (wcForeignKeyStr == null)
             {
                 return null;
             }
 
-            int wcProfessionForeign = int.Parse(wcProfessionForeignStr);
-            List<string> result = new List<string>();
+            List<int> result = new List<int>();
 
-            for (int i = 0; i < BnkDbStruct.WinConditionTable.wcProfAmount; i++)
+            for (int i = 0; i < wcRelatedColAmount; i++)
             {
-                //
-                //
-                //
-                //
-                //TODO     TODO    TODO    TODO    TODO
-                //
-                //
-                //
-                //
+                string relatedID = GetValueByID(
+                    wcRelatedTable,
+                    (wcRelatedColumnSketch + (i + 1).ToString()),
+                    wcForeignKeyStr);
+                if (relatedID != null)
+                {
+                    result.Add(int.Parse(relatedID));
+                }
             }
 
-            //
-            //
-            //
-            //
-            //TODO     TODO    TODO    TODO    TODO
-            //
-            //
-            //
-            //
-
+            if (result.Count == 0)
+            {
+                Console.WriteLine("WARNING: WINCONDITION TABLE FOREIGN KEY EXIST BUT RELATING TABLE HAS NO VALUES BY THIS KEY");
+            }
             return result;
-        }
-
-        public List<string> GetWCItems(int id)
-        {
-            return null;
-        }
-
-        public int GetPropAmount(string table)
-        {
-            return GetRowAmount(table);
         }
 
         string GetValueByID(string table, string column, string id)
@@ -179,7 +193,20 @@ namespace BNKDatabase
                 {
                     if (reader.Read() && !reader.IsDBNull(0))
                     {
-                        return reader.GetString(0);
+                        var t = reader.GetDataTypeName(0);
+                        if(t == "TEXT")                                             //Thoughts: Shall I rework this to handle any sqlite return type?
+                        {
+                            return reader.GetString(0);
+                        }
+                        else if(t == "INTEGER")
+                        {
+                            return reader.GetInt32(0).ToString();
+                        }
+                        else
+                        {
+                            Console.WriteLine("ERROR: UNKOWN DATA TYPE OF THE CELL - METHOD GetValueByID");
+                            return null;
+                        }
                     }
                     else
                     {
