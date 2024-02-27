@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BNKDatabase;
+using Common;
 using Common.BNKProperties;
 
 namespace Bunker_Server
@@ -11,6 +12,7 @@ namespace Bunker_Server
     internal class BNKCore
     {
         BnkDb bnkdb;
+        StoryCard story;
 
         public BNKCore()
         {
@@ -35,6 +37,23 @@ namespace Bunker_Server
                 }
             }
             return storylst;
+        }
+
+        public void CreateStory(int id)
+        {
+            story = StoryCardMethod(id);
+        }
+
+        StoryCard StoryCardMethod(int id)
+        {
+            //todo
+            return null;
+        }
+
+        PlayerCard PlayerCardMethod(int id)
+        {
+            //todo
+            return new PlayerCard();
         }
 
         //TO-DO: listener..?
