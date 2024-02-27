@@ -1,21 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using BNKDatabase;
+using Bunker_Server.Server;
 using Common;
 using Common.BNKProperties;
+using Common.Network.Message.high;
 
 namespace Bunker_Server
 {
     internal class BNKCore
     {
+        BNKServer server;
         BnkDb bnkdb;
         StoryCard story;
 
         public BNKCore()
         {
+            server = new BNKServer();
+
             bnkdb = new BnkDb();
             bnkdb.Connect();
         }
@@ -44,6 +50,21 @@ namespace Bunker_Server
             story = StoryCardMethod(id);
         }
 
+        public int ManageConnection()
+        {
+            return server.ListenConnections();
+        }
+
+        public int KeepAliveClients()
+        {
+            return server.KeepAlive();
+        }
+
+        public void ReadAsyncClients(Action<BunkerMessage, NetworkStream> executeRequest)
+        {
+            server.ReadAsync(executeRequest);
+        }
+
         StoryCard StoryCardMethod(int id)
         {
             //todo
@@ -55,6 +76,7 @@ namespace Bunker_Server
             //todo
             return new PlayerCard();
         }
+
 
         //TO-DO: listener..?
     }

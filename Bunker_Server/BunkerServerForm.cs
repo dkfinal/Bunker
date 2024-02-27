@@ -12,12 +12,10 @@ namespace Bunker_Server
 {
     public partial class BunkerServerForm : Form
     {
-        BNKServer server;
         BNKCore core;
 
         public BunkerServerForm()
         {
-            server = new BNKServer();
             core = new BNKCore();
             InitializeComponent();
 
@@ -34,17 +32,17 @@ namespace Bunker_Server
 
         private void worker_listener_Tick(object sender, EventArgs e)
         {
-            lClientAmount.Text = server.ListenConnections().ToString();
+            lClientAmount.Text = core.ManageConnection().ToString();
         }
 
         private void worker_keepalive_Tick(object sender, EventArgs e)
         {
-            lClientAmount.Text = server.KeepAlive().ToString();
+            lClientAmount.Text = core.KeepAliveClients().ToString();
         }
 
         private void worker_readasync_Tick(object sender, EventArgs e)
         {
-            server.ReadAsync(ExecuteRequest);
+            core.ReadAsyncClients(ExecuteRequest);
         }
 
         //TO-DO relocate this method.
