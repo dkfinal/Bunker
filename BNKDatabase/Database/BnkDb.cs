@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Data.SQLite;
 using System.Linq;
 using System.Reflection;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -19,7 +20,6 @@ namespace BNKDatabase
         public BnkDb()
         {
             
-
         }
 
         ~BnkDb()
@@ -51,7 +51,10 @@ namespace BNKDatabase
         public string GetPersonProp(int id, string personProperty)
         {
             if (id <= 0)
-                return "ERROR: ID WAS LESS THAN 1";
+            {
+                Console.WriteLine("ERROR: ID WAS LESS THAN 1");
+                return null;
+            }
 
             var getval = (string table) => { return GetValueByID(table, BnkDbStruct.PersonPropertyCol.name, id.ToString()); };
 
@@ -76,7 +79,8 @@ namespace BNKDatabase
                 case PersonProperty.weakness:
                     return getval(BnkDbStruct.PersonTable.weakness);
                 default:
-                    return "ERROR: UNKOWN PERSON PROPERTY";
+                    Console.WriteLine("ERROR: UNKOWN PERSON PROPERTY");
+                    return null;
             }
         }
 
@@ -110,9 +114,34 @@ namespace BNKDatabase
             }
         }
 
-        public int GetValuesAmount(string table)
+        public int GetPropertyAmount(string property)
         {
-            return GetRowAmount(table);
+            switch (property)
+            {
+                case PersonProperty.age:
+                    return GetRowAmount(BnkDbStruct.PersonTable.age);
+                case PersonProperty.health:
+                    return GetRowAmount(BnkDbStruct.PersonTable.health);
+                case PersonProperty.hobby:
+                    return GetRowAmount(BnkDbStruct.PersonTable.hobby);
+                case PersonProperty.item:
+                    return GetRowAmount(BnkDbStruct.PersonTable.item);
+                case PersonProperty.profession:
+                    return GetRowAmount(BnkDbStruct.PersonTable.profession);
+                case PersonProperty.race:
+                    return GetRowAmount(BnkDbStruct.PersonTable.race);
+                case PersonProperty.sex:
+                    return GetRowAmount(BnkDbStruct.PersonTable.sex);
+                case PersonProperty.skill:
+                    return GetRowAmount(BnkDbStruct.PersonTable.skill);
+                case PersonProperty.weakness:
+                    return GetRowAmount(BnkDbStruct.PersonTable.weakness);
+                case StoryProperty.name:
+                    return GetRowAmount(BnkDbStruct.WinConditionTable.wincondition);
+                default:
+                    Console.WriteLine("ERROR: UNKOWN PROPERTY");
+                    return -1;
+            }
         }
 
         public List<int> GetWCProfessionsIDs(int id)

@@ -20,8 +20,18 @@ namespace Bunker_Server
             server = new BNKServer();
             core = new BNKCore();
             InitializeComponent();
+
+            var storylst = core.GetStoryList();
+            foreach (var story in storylst)
+            {
+                CMBStories.Items.Add(story);
+            }
+            if(CMBStories.Items.Count > 0)
+            {
+                CMBStories.SelectedItem = CMBStories.Items[0];
+            }
         }
-        
+
         private void worker_listener_Tick(object sender, EventArgs e)
         {
             lClientAmount.Text = server.ListenConnections().ToString();
@@ -50,6 +60,11 @@ namespace Bunker_Server
                 default:
                     break;
             }
+        }
+
+        private void CMBStories_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

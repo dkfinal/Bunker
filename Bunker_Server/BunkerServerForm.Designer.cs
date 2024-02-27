@@ -122,6 +122,7 @@
             CMBStories.Name = "CMBStories";
             CMBStories.Size = new Size(250, 29);
             CMBStories.TabIndex = 3;
+            CMBStories.SelectedIndexChanged += CMBStories_SelectedIndexChanged;
             // 
             // BunkerServerForm
             // 

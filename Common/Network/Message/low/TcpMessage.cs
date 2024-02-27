@@ -26,7 +26,10 @@ namespace Common.Network.Message.low
         private string Get()
         {
             if (raw == null)
-                return "ERROR; NULL MESSAGE";   //TODO: error class
+            {
+                Console.WriteLine("ERROR: NULL MESSAGE");
+                return null;   //Possible bug
+            }
 
             return Encoding.UTF8.GetString(raw).Substring(0, Encoding.UTF8.GetString(raw).IndexOf(delimiter));
         }
