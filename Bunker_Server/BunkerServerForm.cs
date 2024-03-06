@@ -24,7 +24,7 @@ namespace Bunker_Server
             {
                 CMBStories.Items.Add(story);
             }
-            if(CMBStories.Items.Count > 0)
+            if (CMBStories.Items.Count > 0)
             {
                 CMBStories.SelectedItem = CMBStories.Items[0];
             }
@@ -51,7 +51,7 @@ namespace Bunker_Server
             switch (bmsg.GetRequestType())
             {
                 case TcpRequestType.SET_NICKNAME:
-                    lbNetLogs.Items.Add(bmsg.GetRequestValue() + " connected");
+                    lbLogs.Items.Add(bmsg.GetRequestValue() + " connected");
                     break;
                 case TcpRequestType.KEEP_ALIVE:
                     break;
@@ -61,6 +61,17 @@ namespace Bunker_Server
         }
 
         private void CMBStories_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            core.CreateStory(CMBStories.SelectedIndex);
+            lbLogs.Items.Add("Minimum players set to " + core.GetStoryMinClients().ToString());
+        }
+
+        private void bStart_Click(object sender, EventArgs e)
+        {
+            //lStatus.Text = core.GameStart();
+        }
+
+        private void bRestart_Click(object sender, EventArgs e)
         {
 
         }

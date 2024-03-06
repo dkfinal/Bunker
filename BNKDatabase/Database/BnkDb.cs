@@ -98,8 +98,8 @@ namespace BNKDatabase
             {
                 case StoryProperty.name:
                     return getval(BnkDbStruct.WinConditionCol.name);
-                case StoryProperty.maxplayers:
-                    return getval(BnkDbStruct.WinConditionCol.maxplayers);
+                case StoryProperty.minplayers:
+                    return getval(BnkDbStruct.WinConditionCol.minplayers);
                 case StoryProperty.breed:
                     return getval(BnkDbStruct.WinConditionCol.breed);
                 case StoryProperty.opening:
@@ -217,7 +217,7 @@ namespace BNKDatabase
 
             using (var command = database.CreateCommand())
             {
-                command.CommandText = $"SELECT {column} FROM '{table}' WHERE id = '{id}'";
+                command.CommandText = $"SELECT \"{column}\" FROM \"{table}\" WHERE id = '{id}'";
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read() && !reader.IsDBNull(0))
@@ -256,7 +256,7 @@ namespace BNKDatabase
 
             using (var command = database.CreateCommand())
             {
-                command.CommandText = $"SELECT * FROM '{table}'";
+                command.CommandText = $"SELECT * FROM \"{table}\"";
                 using (var reader = command.ExecuteReader())
                 {
                     int counter = 0;

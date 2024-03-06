@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            lbNetLogs = new ListBox();
+            lbLogs = new ListBox();
             lClientAmountName = new Label();
             bStart = new Button();
             lClientAmount = new Label();
@@ -39,22 +39,23 @@
             worker_keepalive = new System.Windows.Forms.Timer(components);
             worker_readasync = new System.Windows.Forms.Timer(components);
             CMBStories = new ComboBox();
+            bRestart = new Button();
             SuspendLayout();
             // 
-            // lbNetLogs
+            // lbLogs
             // 
-            lbNetLogs.FormattingEnabled = true;
-            lbNetLogs.HorizontalScrollbar = true;
-            lbNetLogs.ItemHeight = 21;
-            lbNetLogs.Location = new Point(12, 12);
-            lbNetLogs.Name = "lbNetLogs";
-            lbNetLogs.Size = new Size(175, 361);
-            lbNetLogs.TabIndex = 0;
+            lbLogs.FormattingEnabled = true;
+            lbLogs.HorizontalScrollbar = true;
+            lbLogs.ItemHeight = 21;
+            lbLogs.Location = new Point(12, 12);
+            lbLogs.Name = "lbLogs";
+            lbLogs.Size = new Size(555, 109);
+            lbLogs.TabIndex = 0;
             // 
             // lClientAmountName
             // 
             lClientAmountName.AutoSize = true;
-            lClientAmountName.Location = new Point(193, 33);
+            lClientAmountName.Location = new Point(12, 146);
             lClientAmountName.Name = "lClientAmountName";
             lClientAmountName.Size = new Size(74, 21);
             lClientAmountName.TabIndex = 1;
@@ -62,17 +63,18 @@
             // 
             // bStart
             // 
-            bStart.Location = new Point(449, 32);
+            bStart.Location = new Point(449, 145);
             bStart.Name = "bStart";
             bStart.Size = new Size(118, 54);
             bStart.TabIndex = 2;
             bStart.Text = "Начать игру";
             bStart.UseVisualStyleBackColor = true;
+            bStart.Click += bStart_Click;
             // 
             // lClientAmount
             // 
             lClientAmount.AutoSize = true;
-            lClientAmount.Location = new Point(273, 33);
+            lClientAmount.Location = new Point(92, 146);
             lClientAmount.Name = "lClientAmount";
             lClientAmount.Size = new Size(19, 21);
             lClientAmount.TabIndex = 1;
@@ -81,7 +83,7 @@
             // lStatusName
             // 
             lStatusName.AutoSize = true;
-            lStatusName.Location = new Point(193, 12);
+            lStatusName.Location = new Point(12, 125);
             lStatusName.Name = "lStatusName";
             lStatusName.Size = new Size(60, 21);
             lStatusName.TabIndex = 1;
@@ -90,7 +92,7 @@
             // lStatus
             // 
             lStatus.AutoSize = true;
-            lStatus.Location = new Point(259, 12);
+            lStatus.Location = new Point(78, 125);
             lStatus.Name = "lStatus";
             lStatus.Size = new Size(145, 21);
             lStatus.TabIndex = 1;
@@ -118,24 +120,35 @@
             // 
             CMBStories.DropDownStyle = ComboBoxStyle.DropDownList;
             CMBStories.FormattingEnabled = true;
-            CMBStories.Location = new Point(193, 57);
+            CMBStories.Location = new Point(12, 170);
             CMBStories.Name = "CMBStories";
-            CMBStories.Size = new Size(250, 29);
+            CMBStories.Size = new Size(270, 29);
             CMBStories.TabIndex = 3;
             CMBStories.SelectedIndexChanged += CMBStories_SelectedIndexChanged;
+            // 
+            // bRestart
+            // 
+            bRestart.Location = new Point(492, 337);
+            bRestart.Name = "bRestart";
+            bRestart.Size = new Size(75, 39);
+            bRestart.TabIndex = 4;
+            bRestart.Text = "Рестарт";
+            bRestart.UseVisualStyleBackColor = true;
+            bRestart.Click += bRestart_Click;
             // 
             // BunkerServerForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(579, 388);
+            Controls.Add(bRestart);
             Controls.Add(CMBStories);
             Controls.Add(bStart);
             Controls.Add(lClientAmount);
             Controls.Add(lStatus);
             Controls.Add(lStatusName);
             Controls.Add(lClientAmountName);
-            Controls.Add(lbNetLogs);
+            Controls.Add(lbLogs);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(4);
@@ -148,7 +161,7 @@
 
         #endregion
 
-        private ListBox lbNetLogs;
+        private ListBox lbLogs;
         private Label lClientAmountName;
         private Button bStart;
         private Label lClientAmount;
@@ -158,5 +171,6 @@
         private System.Windows.Forms.Timer worker_keepalive;
         private System.Windows.Forms.Timer worker_readasync;
         private ComboBox CMBStories;
+        private Button bRestart;
     }
 }

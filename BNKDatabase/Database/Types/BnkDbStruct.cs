@@ -25,7 +25,7 @@ namespace BNKDatabase.Types
             public const string
                 id = "id",
                 name = "name",
-                maxplayers = "max players",
+                minplayers = "min players",
                 breed = "breed",
                 professions = "professions",            //foreign key linked to WinConditionTable - wcprofessions
                 items = "items",                        //foreign key linked to WinConditionTable - wcitems

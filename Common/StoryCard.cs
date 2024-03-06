@@ -8,21 +8,21 @@ namespace Common
 {
     public class StoryCard
     {
-        int id;
-        string name;
-        int maxPlayers;
-        bool breed;
-        List<int> professions;
-        List<int> items;
-        string opening;
-        string goodend;
-        string badend;
+        public int id { get; }
+        public string name { get; }
+        public int minPlayers { get; }
+        public bool breed { get; }
+        public List<int> professions { get; }
+        public List<int> items { get; }
+        public string opening { get; }
+        public string goodend { get; }
+        public string badend { get; }
 
-        public StoryCard(int id, string name, int maxPlayers, bool breed, List<int> professions, List<int> items, string opening, string goodend, string badend)
+        public StoryCard(int id, string name, int minPlayers, bool breed, List<int> professions, List<int> items, string opening, string goodend, string badend)
         {
             this.id = id;
             this.name = name;
-            this.maxPlayers = maxPlayers;
+            this.minPlayers = minPlayers;
             this.breed = breed;
             this.professions = professions;
             this.items = items;

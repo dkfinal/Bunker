@@ -39,7 +39,7 @@ namespace Bunker_Server
                 }
                 else
                 {
-                    storylst.Add("Unnamed story" + (i + 1).ToString());
+                    storylst.Add("Unnamed story" + (i + 1).ToString()); //TODO: wrapper for standart phrases
                 }
             }
             return storylst;
@@ -47,7 +47,16 @@ namespace Bunker_Server
 
         public void CreateStory(int id)
         {
-            story = StoryCardMethod(id);
+            story = StoryCardMethod(id++);
+        }
+        public int GetStoryMinClients()
+        {
+            return story.minPlayers;
+        }
+
+        public void GameStart()
+        {
+
         }
 
         public int ManageConnection()
@@ -67,8 +76,27 @@ namespace Bunker_Server
 
         StoryCard StoryCardMethod(int id)
         {
-            //todo
-            return null;
+            id++;
+            string name = bnkdb.GetWCProp(id, StoryProperty.name);
+            int minplayers = int.Parse(bnkdb.GetWCProp(id, StoryProperty.minplayers));
+            bool breed = bool.Parse(bnkdb.GetWCProp(id, StoryProperty.breed));
+            var professions = bnkdb.GetWCProfessionsIDs(id);
+            var items = bnkdb.GetWCItemsIDs(id);
+            string opening = bnkdb.GetWCProp(id, StoryProperty.opening);
+            string goodend = bnkdb.GetWCProp(id, StoryProperty.goodend);
+            string badend = bnkdb.GetWCProp(id, StoryProperty.badend);
+
+            return new StoryCard(
+                id,
+                name,
+                minplayers,
+                breed,
+                professions,
+                items,
+                opening,
+                goodend,
+                badend
+                );
         }
 
         PlayerCard PlayerCardMethod(int id)
