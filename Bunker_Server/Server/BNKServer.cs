@@ -8,6 +8,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Common;
+using Bunker_Server.Core;
 
 namespace Bunker_Server.Server
 {
@@ -16,20 +17,26 @@ namespace Bunker_Server.Server
         int port = 29500;
         TcpListener listener;
         IPEndPoint iep;
-        List<ConnectedEntity> clients = new List<ConnectedEntity>();
+        List<ConnectedEntity> clients;
+        bool isListening;
 
         public BNKServer()
         {
+            clients = new List<ConnectedEntity>();
             iep = new IPEndPoint(IPAddress.Any, port);
             listener = new TcpListener(iep);
             listener.Start();
+            isListening = true;
         }
 
         public int ListenConnections()
         {
-            if (listener.Pending())
+            if (isListening)
             {
-                clients.Add(new ConnectedEntity(listener.AcceptTcpClient()));
+                if (listener.Pending())
+                {
+                    clients.Add(new ConnectedEntity(listener.AcceptTcpClient()));
+                }
             }
             return clients.Count;
         }
@@ -45,6 +52,26 @@ namespace Bunker_Server.Server
                 }
             }
             return clients.Count;
+        }
+
+        public int GetClientsAmount()
+        {
+            return clients.Count;
+        }
+
+        public void Notifyer(string gameStatus)
+        {
+            switch (gameStatus)
+            {
+                case GameStatus.STATUS_IDLE:
+                    isListening = true;
+                    break;
+                case GameStatus.STATUS_VOTE:
+                    isListening = false;
+                    break;
+                default:
+                    break;
+            }
         }
         public void ReadAsync(Action<BunkerMessage, NetworkStream> ExecuteRequest)
         {

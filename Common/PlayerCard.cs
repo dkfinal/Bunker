@@ -8,6 +8,8 @@ namespace Common
 {
     public class PlayerCard
     {
+        bool isAlive;
+
         string
             age,
             health,
@@ -29,6 +31,11 @@ namespace Common
             sexID,
             skillID,
             weaknessID;
+
+        public PlayerCard()
+        {
+            isAlive = true;
+        }
 
         public void UseSkill()
         {

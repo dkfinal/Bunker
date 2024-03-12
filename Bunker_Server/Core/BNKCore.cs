@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using BNKDatabase;
+using Bunker_Server.Core;
 using Bunker_Server.Server;
 using Common;
 using Common.BNKProperties;
@@ -14,16 +16,18 @@ namespace Bunker_Server
 {
     internal class BNKCore
     {
-        BNKServer server;
+        //
         BnkDb bnkdb;
         StoryCard story;
+        string gameStatus;
+        List<Action<string>> subscribers;
 
         public BNKCore()
         {
-            server = new BNKServer();
-
             bnkdb = new BnkDb();
             bnkdb.Connect();
+            subscribers = new List<Action<string>>();
+            gameStatus = GameStatus.STATUS_IDLE;
         }
 
         public List<string> GetStoryList()
@@ -39,7 +43,7 @@ namespace Bunker_Server
                 }
                 else
                 {
-                    storylst.Add("Unnamed story" + (i + 1).ToString()); //TODO: wrapper for standart phrases
+                    storylst.Add("Unnamed story" + (i + 1).ToString()); //TODO: wrapper for default phrases
                 }
             }
             return storylst;
@@ -54,24 +58,36 @@ namespace Bunker_Server
             return story.minPlayers;
         }
 
-        public void GameStart()
+        public void GameStart(int connectedAmount)
         {
-
+            if(connectedAmount < story.minPlayers)
+            {
+                return;
+            }
+            gameStatus = GameStatus.STATUS_VOTE;
+            Notify();
+        }
+        public void GameStop()
+        {
+            gameStatus = GameStatus.STATUS_IDLE;
+            Notify();
+        }
+        public string GetGameStatus()
+        {
+            return gameStatus;
         }
 
-        public int ManageConnection()
+        public void Subscribe(Action<string> notifyer)
         {
-            return server.ListenConnections();
+            subscribers.Add(notifyer);
         }
 
-        public int KeepAliveClients()
+        void Notify()
         {
-            return server.KeepAlive();
-        }
-
-        public void ReadAsyncClients(Action<BunkerMessage, NetworkStream> executeRequest)
-        {
-            server.ReadAsync(executeRequest);
+            foreach(var subscriber in subscribers)
+            {
+                subscriber(gameStatus);
+            }
         }
 
         StoryCard StoryCardMethod(int id)
@@ -104,8 +120,5 @@ namespace Bunker_Server
             //todo
             return new PlayerCard();
         }
-
-
-        //TO-DO: listener..?
     }
 }

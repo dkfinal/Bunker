@@ -9,8 +9,10 @@ namespace Common.Network.Message
     public static class TcpRequestType
     {
         public const string
-            SET_NICKNAME = "nickname",
-            KEEP_ALIVE = "keepalive";
+            SET_NICKNAME = "request_nickname",
+            KEEP_ALIVE = "request_keepalive",
+            USE_SKILL1 = "request_skill1",
+            USE_SKILL2 = "request_skill2";
 
     }
 }

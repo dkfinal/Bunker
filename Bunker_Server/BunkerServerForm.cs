@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Text;
 using BNKDatabase;
+using Bunker_Server.Core;
 using Bunker_Server.Server;
 using Common.Network.Message;
 using Common.Network.Message.high;
@@ -13,10 +14,12 @@ namespace Bunker_Server
     public partial class BunkerServerForm : Form
     {
         BNKCore core;
-
+        BNKServer server;
         public BunkerServerForm()
         {
+            server = new BNKServer();
             core = new BNKCore();
+            core.Subscribe(this.Notifyer);
             InitializeComponent();
 
             var storylst = core.GetStoryList();
@@ -32,17 +35,17 @@ namespace Bunker_Server
 
         private void worker_listener_Tick(object sender, EventArgs e)
         {
-            lClientAmount.Text = core.ManageConnection().ToString();
+            lClientAmount.Text = server.ListenConnections().ToString();
         }
 
         private void worker_keepalive_Tick(object sender, EventArgs e)
         {
-            lClientAmount.Text = core.KeepAliveClients().ToString();
+            lClientAmount.Text = server.KeepAlive().ToString();
         }
 
         private void worker_readasync_Tick(object sender, EventArgs e)
         {
-            core.ReadAsyncClients(ExecuteRequest);
+            server.ReadAsync(ExecuteRequest);
         }
 
         //TO-DO relocate this method.
@@ -68,12 +71,44 @@ namespace Bunker_Server
 
         private void bStart_Click(object sender, EventArgs e)
         {
-            //lStatus.Text = core.GameStart();
+            core.GameStart(server.GetClientsAmount());
         }
 
         private void bRestart_Click(object sender, EventArgs e)
         {
+            core.GameStop();
+        }
 
+        private void Notifyer(string gameStatus)
+        {
+            switch(gameStatus)
+            {
+                case GameStatus.STATUS_IDLE:
+                    lStatus.Text = StatusInterpretate(core.GetGameStatus());
+                    CMBStories.Enabled = true;
+                    bStart.Enabled = true;
+                    break;
+                case GameStatus.STATUS_VOTE:
+                    lStatus.Text = StatusInterpretate(core.GetGameStatus());
+                    CMBStories.Enabled = false;
+                    bStart.Enabled = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private string StatusInterpretate(string gameStatus)
+        {
+            switch (gameStatus)
+            {
+                case GameStatus.STATUS_IDLE:
+                    return "ожидание игроков";
+                case GameStatus.STATUS_VOTE:
+                    return "игра продолжается";
+                default:
+                    return null;
+            }
         }
     }
 }
